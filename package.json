@@ -1,0 +1,23 @@
+{
+  "name": "github-actions-sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chilitreat/github-actions-sandbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chilitreat/github-actions-sandbox/issues"
+  },
+  "homepage": "https://github.com/chilitreat/github-actions-sandbox#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
