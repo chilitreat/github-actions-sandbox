@@ -1,18 +1,18 @@
-name: "Jest Unit Test Action"
-description: "Jestでユニットテストを実行するアクション"
+name: Jest Unit Test Action
+description: Jestでユニットテストを実行するアクション
 inputs:
   node-version:
     default: '18'
     required: false
-    description: 'use nodejs version'
+    description: テスト実行環境のNode.jsのバージョン
 
 runs:
-  using: "composite"
+  using: composite
   steps:
-    - name: "Checkout"
+    - name: Checkout
       uses: actions/checkout@v2
 
-    - name: "Setup Node.js"
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
