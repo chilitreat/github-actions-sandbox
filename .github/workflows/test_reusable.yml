@@ -1,0 +1,12 @@
+name: Test
+on:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/testing/nodejs/jest
+        with:
+          node-version: '18'
