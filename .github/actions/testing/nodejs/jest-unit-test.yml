@@ -1,0 +1,23 @@
+name: "Jest Unit Test Action"
+description: "Jestでユニットテストを実行するアクション"
+inputs:
+  node-version:
+    default: '18'
+    required: false
+
+runs:
+  using: "composite"
+  step:
+    - name: "Checkout"
+      use: actions/checkout@v2
+
+    - name: "Setup Node.js"
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Run install
+      run: npm ci
+
+    - name: Run test
+      run: npm test
