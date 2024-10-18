@@ -17,7 +17,7 @@ jobs:
         with:
           ref: main # 任意のブランチを指定（GitHub の default は master）
           repository: ${{ github.repository }}.wiki
-          path: wiki
+          path: .wiki
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Wiki Info
         id: wiki_info
