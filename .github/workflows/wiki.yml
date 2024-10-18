@@ -1,0 +1,41 @@
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+  issue_comment:
+jobs:
+  pr_agent_job:
+    if: ${{ github.event.sender.type != 'Bot' }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+    name: Run pr agent
+    steps:
+      - name: Checkout the Wiki repository
+        uses: actions/checkout@v4
+        with:
+          ref: main # 任意のブランチを指定（GitHub の default は master）
+          repository: {repo}/{path}.wiki
+          path: wiki
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Wiki Info
+        id: wiki_info
+        run: |
+          set_env_var_from_file() {
+            local var_name=$1
+            local file_path=$2
+            local prompt=$(cat "$file_path")
+            echo "${var_name}<<EOF" >> $GITHUB_ENV
+            echo "prompt" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+          }
+          set_env_var_from_file "REVIEW_PROMPT" "./wiki/pr-agent-review-prompt.md"
+      - name: PR Agent action step
+        id: pragent
+        uses: Codium-ai/pr-agent@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PR_AGENT settings (/review)
+          PR_REVIEWER.extra_instructions: |
+            ${{env.REVIEW_PROMPT}}
