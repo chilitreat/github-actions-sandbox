@@ -23,6 +23,8 @@ jobs:
         working-directory: .wiki
         id: wiki_info
         run: |
+          pwd
+          ls -al
           var_name="REVIEW_PROMPT"
           cat ./pr-agent-review-prompt.md
           prompt=$(cat ./pr-agent-review-prompt.md)
