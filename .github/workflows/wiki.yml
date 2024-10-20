@@ -12,14 +12,15 @@ jobs:
       contents: write
     name: Run pr agent
     steps:
-      - name: Checkout the Wiki repository
+      - name: Check out main repo
+        uses: actions/checkout@v4
+      - name: Check out wiki repo
         uses: actions/checkout@v4
         with:
-          ref: main # 任意のブランチを指定（GitHub の default は master）
-          repository: {repo}/{path}.wiki
-          path: wiki
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: "${{ github.repository }}.wiki"
+          path: .wiki
       - name: Set up Wiki Info
+        working-directory: .wiki
         id: wiki_info
         run: |
           set_env_var_from_file() {
@@ -27,15 +28,17 @@ jobs:
             local file_path=$2
             local prompt=$(cat "$file_path")
             echo "${var_name}<<EOF" >> $GITHUB_ENV
-            echo "prompt" >> $GITHUB_ENV
+            echo $prompt >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
           }
-          set_env_var_from_file "REVIEW_PROMPT" "./wiki/pr-agent-review-prompt.md"
+          set_env_var_from_file "REVIEW_PROMPT" "./pr_agent_review_prompt.md"
       - name: PR Agent action step
         id: pragent
         uses: Codium-ai/pr-agent@main
         env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # PR_AGENT settings (/review)
+          PR_REVIEWER.num_code_suggestions: 20
           PR_REVIEWER.extra_instructions: |
             ${{env.REVIEW_PROMPT}}
