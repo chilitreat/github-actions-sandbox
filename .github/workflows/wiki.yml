@@ -30,7 +30,24 @@ jobs:
             echo "prompt" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
           }
-          set_env_var_from_file "REVIEW_PROMPT" "./wiki/pr-agent-review-prompt.md"
+          set_env_var_from_file "REVIEW_PROMPT" "./pr-agent-review-prompt.md"
+          - name: Update wiki pages
+          run: echo -e "# Hello\n\n$(date)" > .wiki/hello.md
+      - name: Stage and count changes
+        working-directory: .wiki
+        id: staging
+        run: |
+          git add .
+          echo "NUM_OF_STAGED=$(git diff --staged --name-only | wc -l)" >> $GITHUB_OUTPUT          
+
+      - name: Commit wiki pages
+        working-directory: .wiki
+        if: steps.staging.outputs.NUM_OF_STAGED > 0
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git commit -m "${GITHUB_WORKFLOW}"
+          git push          
       - name: PR Agent action step
         id: pragent
         uses: Codium-ai/pr-agent@main
