@@ -23,8 +23,6 @@ jobs:
         id: wiki_info
         run: |
           set_env_var_from_file() {
-            pwd
-            ls -al .wiki/
             local var_name=$1
             local file_path=$2
             local prompt=$(cat "$file_path")
@@ -32,7 +30,19 @@ jobs:
             echo $prompt >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
           }
-          set_env_var_from_file "REVIEW_PROMPT" "./.wiki/pr-agent-review-prompt.md"
+          echo "cat ./.wiki/pr-agent-review-prompt.md"
+          cat ./.wiki/pr-agent-review-prompt.md
+
+          echo "cat .wiki/pr-agent-review-prompt.md"
+          cat .wiki/pr-agent-review-prompt.md
+
+          echo "cat ./pr-agent-review-prompt.md"
+          cat ./pr-agent-review-prompt.md
+
+          echo "cat ./pr-agent-review-prompt.md"
+          cat ./pr-agent-review-prompt.md
+        
+          set_env_var_from_file "REVIEW_PROMPT" ".wiki/pr-agent-review-prompt.md"
       - name: Update wiki pages
         run: echo -e "# Hello\n\n$(date)" > .wiki/hello.md
       - name: Stage and count changes
