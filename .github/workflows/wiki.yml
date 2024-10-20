@@ -23,9 +23,9 @@ jobs:
         working-directory: .wiki
         id: wiki_info
         run: |
-          local var_name="REVIEW_PROMPT"
-          local file_path="./pr-agent-review-prompt.md"
-          local prompt=$(cat "$file_path")
+          var_name="REVIEW_PROMPT"
+          file_path="./pr-agent-review-prompt.md"
+          prompt=$(cat "$file_path")
           echo "${var_name}<<EOF" >> $GITHUB_ENV
           echo $prompt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
