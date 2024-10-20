@@ -24,7 +24,7 @@ jobs:
         run: |
           set_env_var_from_file() {
             pwd
-            ls -al
+            ls -al .wiki/
             local var_name=$1
             local file_path=$2
             local prompt=$(cat "$file_path")
