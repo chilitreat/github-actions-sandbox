@@ -34,6 +34,7 @@ jobs:
           pwd 
           ls -al
           set_env_var_from_file "REVIEW_PROMPT" "./pr-agent-review-prompt.md"
+          set_env_var_from_file "REVIEW_PROMPT" ".wiki/pr-agent-review-prompt.md"
       - name: Update wiki pages
         run: echo -e "# Hello\n\n$(date)" > .wiki/hello.md
       - name: Stage and count changes
