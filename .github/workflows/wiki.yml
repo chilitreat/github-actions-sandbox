@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout the Wiki repository
         uses: actions/checkout@v4
+      - name: Checkout the Wiki repository
+        uses: actions/checkout@v4
         with:
           ref: main # 任意のブランチを指定（GitHub の default は master）
           repository: ${{ github.repository }}.wiki
