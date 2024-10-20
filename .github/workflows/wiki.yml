@@ -26,8 +26,8 @@ jobs:
           pwd
           ls -al
           var_name="REVIEW_PROMPT"
-          cat ./pr-agent-review-prompt.md
-          prompt=$(cat ./pr-agent-review-prompt.md)
+          cat ./pr‐agent‐review‐prompt.md
+          prompt=$(cat ./pr‐agent‐review‐prompt.md)
           echo "${var_name}<<EOF" >> $GITHUB_ENV
           echo $prompt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
