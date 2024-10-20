@@ -31,7 +31,7 @@ jobs:
             echo $prompt >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
           }
-          set_env_var_from_file "REVIEW_PROMPT" "./pr‐agent‐review‐prompt.md"  
+          set_env_var_from_file "REVIEW_PROMPT" "./pr_agent_review_prompt.md"  
       - name: PR Agent action step
         id: pragent
         uses: Codium-ai/pr-agent@main
