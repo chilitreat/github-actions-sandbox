@@ -23,14 +23,15 @@ jobs:
         working-directory: .wiki
         id: wiki_info
         run: |
-          pwd
-          ls -al
-          var_name="REVIEW_PROMPT"
-          cat ./pr‐agent‐review‐prompt.md
-          prompt=$(cat ./pr‐agent‐review‐prompt.md)
-          echo "${var_name}<<EOF" >> $GITHUB_ENV
-          echo $prompt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          set_env_var_from_file() {
+            local var_name=$1
+            local file_path=$2
+            local prompt=$(cat "$file_path")
+            echo "${var_name}<<EOF" >> $GITHUB_ENV
+            echo $prompt >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+          }
+          set_env_var_from_file "REVIEW_PROMPT" "./pr‐agent‐review‐prompt.md"  
       - name: Update wiki pages
         run: echo -e "# Hello\n\n$(date)" > .wiki/hello.md
       - name: Stage and count changes
