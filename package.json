@@ -17,6 +17,9 @@
     "url": "https://github.com/chilitreat/github-actions-sandbox/issues"
   },
   "homepage": "https://github.com/chilitreat/github-actions-sandbox#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
   "devDependencies": {
     "jest": "^29.3.1"
   }
