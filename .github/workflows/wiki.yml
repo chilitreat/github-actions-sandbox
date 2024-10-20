@@ -23,11 +23,12 @@ jobs:
         id: wiki_info
         run: |
           set_env_var_from_file() {
+            pwd
             local var_name=$1
             local file_path=$2
             local prompt=$(cat "$file_path")
             echo "${var_name}<<EOF" >> $GITHUB_ENV
-            echo "prompt" >> $GITHUB_ENV
+            echo $prompt >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
           }
           set_env_var_from_file "REVIEW_PROMPT" ".wiki/pr-agent-review-prompt.md"
