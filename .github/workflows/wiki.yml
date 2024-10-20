@@ -12,15 +12,13 @@ jobs:
       contents: write
     name: Run pr agent
     steps:
-      - name: Checkout the Wiki repository
-        uses: actions/checkout@v4
-      - name: Checkout the Wiki repository
-        uses: actions/checkout@v4
+      - name: Check out main repo
+        uses: actions/checkout@v3
+      - name: Check out wiki repo
+        uses: actions/checkout@v3
         with:
-          ref: main # 任意のブランチを指定（GitHub の default は master）
-          repository: ${{ github.repository }}.wiki
+          repository: "${{ github.repository }}.wiki"
           path: .wiki
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Wiki Info
         id: wiki_info
         run: |
